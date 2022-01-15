@@ -22,7 +22,7 @@ export class TabGroup extends Component<TabGroupProps, TabContextState> {
             };
         });
 
-        this.onChange(index)
+        this.onChange(index);
     }
 
     private updateActiveTabContent(node: ReactNode) {
@@ -30,7 +30,7 @@ export class TabGroup extends Component<TabGroupProps, TabContextState> {
             return {
                 ...state,
                 activeTabContent: node
-            }
+            };
         });
     }
 
@@ -38,14 +38,14 @@ export class TabGroup extends Component<TabGroupProps, TabContextState> {
     // Emit when active tab is change
     private onChange(index: any) {
         if (this.props.onChange) {
-            this.props.onChange(index)
+            this.props.onChange(index);
         }
     }
 
     render() {
         return (
             <TabsContext.Provider value={this.state}>
-                <div className="tabs tabs-boxed">
+                <div className="tabs tabs-boxed pb-2">
                     {this.props.children}
                 </div>
 
