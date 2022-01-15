@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { TabGroup } from './lib/components/tabs/TabGroup';
+import { Tab } from './lib/components/tabs/Tab';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const onTabChange = (index: any) => {
+        console.log(index);
+    }
+
+    return (
+        <div className="App">
+            <header className="App-header">
+                <TabGroup onChange={onTabChange}>
+                    <Tab index={0} label='Tab1'>Tab1 content</Tab>
+                    <Tab index={1} label='Tab2'>Tab2 content</Tab>
+                    <Tab index={2} label='Tab3'>Tab3 content</Tab>
+                </TabGroup>
+            </header>
+        </div>
+    );
 }
 
 export default App;
