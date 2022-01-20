@@ -10,16 +10,17 @@ interface BtnGroupProps {
 export class BtnGroup extends Component<BtnGroupProps, BtnGroupContextState> {
 
     state: BtnGroupContextState = {
-        activeBtn: new Set([0]),
+        activeBtn: new Set([]),
         multiple: !!this.props.multiple,
         updateActiveBtn: this.updateActiveBtn.bind(this)
     };
 
     private updateActiveBtn(btnId: any) {
         const activeBtn = new Set(this.state.activeBtn);
+
         if (!this.state.multiple) {
             activeBtn.clear();
-            activeBtn.add(btnId)
+            activeBtn.add(btnId);
         } else {
             activeBtn.has(btnId)
                 ? activeBtn.delete(btnId)

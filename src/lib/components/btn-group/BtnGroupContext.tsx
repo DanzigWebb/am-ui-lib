@@ -8,4 +8,4 @@ export interface BtnGroupContextState {
 
 export const BtnGroupContext = createContext<BtnGroupContextState>({
     activeBtn: new Set()
-})
+});
