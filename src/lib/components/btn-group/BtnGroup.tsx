@@ -3,6 +3,7 @@ import { BtnGroupContext, BtnGroupContextState } from './BtnGroupContext';
 
 interface BtnGroupProps {
     children: React.ReactNode;
+    value?: any | any[];
     onChange?: (btnId: any) => void;
     multiple?: boolean;
 }
@@ -14,6 +15,16 @@ export class BtnGroup extends Component<BtnGroupProps, BtnGroupContextState> {
         multiple: !!this.props.multiple,
         updateActiveBtn: this.updateActiveBtn.bind(this)
     };
+
+    componentDidMount() {
+        if (this.props.value) {
+            const activeBtn = Array.isArray(this.props.value)
+                ? new Set(this.props.value)
+                : new Set([this.props.value]);
+
+            this.setState((s) => ({...s, activeBtn}));
+        }
+    }
 
     private updateActiveBtn(btnId: any) {
         const activeBtn = new Set(this.state.activeBtn);
