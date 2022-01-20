@@ -6,39 +6,49 @@ import { BtnGroupItem } from './lib/components/btn-group/BtnGroupItem';
 import { Modal } from './lib/components/modal/Modal';
 import { ModalExample } from './examples/modal/ModalExample';
 
+interface State {
+    tabIndex: number,
+    btnIndex: number,
+    checkedBtn: null | number,
+}
+
 function App() {
 
-    const [tabIndex, setTabIndex] = useState(0);
-    const [btnIndex, setBtnIndex] = useState(0);
+    const [state, setState] = useState<State>({
+        tabIndex: 0,
+        btnIndex: 0,
+        checkedBtn: null,
+    })
 
-    const onTabChange = (index: any) => {
-        setTabIndex(index);
+    const onTabChange = (tabIndex: any) => {
+        setState({...state, tabIndex});
     };
 
-    const onBtnGroupChange = (btnId: any) => {
-        setBtnIndex(btnId);
+    const onBtnGroupChange = (btnIndex: any) => {
+        setState({...state, btnIndex})
     };
 
-    const onModalCheck = (n: number) => {
-        console.log('Пользователь выбрал кнопку: ', n);
-    }
+    const onModalCheck = (checkedBtn: number) => {
+        console.log('Пользователь выбрал кнопку: ', checkedBtn);
+        setState({...state, checkedBtn})
+    };
 
     const openModal = () => {
-        const modalRef = Modal.open(
+        const modal = new Modal(
             <ModalExample
-                title="Динамическое модальное окно"
-                onCheck={(n) => {
-                    onModalCheck(n);
-                    Modal.close(modalRef);
-                }}
+                checkedBtn={state.checkedBtn}
+                title={<b>Динамическое модальное окно</b>}
+                onCheck={(n) => onModalCheck(n)}
             />
-        );
+        )
+
+        modal.show();
     };
 
     return (
         <div className="App">
             <header className="App-header">
-                <p className="my-1">Active tab index: {tabIndex}</p>
+                <p className="my-1">Active tab index: {state.tabIndex}</p>
                 <TabGroup onChange={onTabChange}>
                     <Tab index={0} label="Tab1">Tab1 content</Tab>
                     <Tab index={1} label="Tab2">Tab2 content</Tab>
@@ -47,8 +57,8 @@ function App() {
 
                 <br/>
 
-                <p className="my-1">Active btn id: {btnIndex}</p>
-                <BtnGroup multiple={true} onChange={onBtnGroupChange}>
+                <p className="my-1">Active btn id: {state.btnIndex}</p>
+                <BtnGroup onChange={onBtnGroupChange}>
                     <BtnGroupItem btnId={0}>1</BtnGroupItem>
                     <BtnGroupItem btnId={1}>2</BtnGroupItem>
                     <BtnGroupItem btnId={2}>3</BtnGroupItem>
@@ -58,6 +68,7 @@ function App() {
 
                 <br/>
 
+                <p className="my-1">Checked btn in modal: {state.checkedBtn}</p>
                 <button className="btn my-2" onClick={openModal}>Open modal</button>
             </header>
         </div>

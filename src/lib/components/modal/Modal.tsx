@@ -2,30 +2,35 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { ReactNode } from 'react';
 import { ModalContainer } from './ModalContainer';
 
-export interface ModalContext {
-
-}
 
 export class Modal {
 
-    static close(div: Element) {
-        unmountComponentAtNode(div);
-        document.body.removeChild(div);
+    private portalEl: Element | null = null;
+
+    constructor(
+        private node: ReactNode
+    ) {
     }
 
-    static open(component: ReactNode) {
-        const div = document.createElement('div');
-        document.body.appendChild(div);
-        render(<ModalContainer onClose={() => div.remove()}>{component}</ModalContainer>, div);
+    show() {
+        this.portalEl = document.createElement('div');
+        document.body.appendChild(this.portalEl);
 
-        return div;
+        const container = (
+            <ModalContainer
+                onClose={() => this.close()}
+                context={this}>
+                {this.node}
+            </ModalContainer>
+        );
+
+        render(container, this.portalEl);
+    }
+
+    close() {
+        if (this.portalEl) {
+            unmountComponentAtNode(this.portalEl);
+            document.body.removeChild(this.portalEl);
+        }
     }
 }
-
-
-// export const Modal2 = (props?: any) => {
-//     const div = document.createElement('div');
-//     document.body.appendChild(div);
-//     const portal = ReactDOM.createPortal(ModalComponent, div);
-//     render(portal, div);
-// };
