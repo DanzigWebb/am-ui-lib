@@ -17,15 +17,28 @@ export class BtnGroup extends Component<BtnGroupProps, BtnGroupContextState> {
     };
 
     componentDidMount() {
+        this.updateValueByProps();
+    }
+
+    componentDidUpdate(prevProps: Readonly<BtnGroupProps>) {
+        if (prevProps.value !== this.props.value) {
+            this.updateValueByProps();
+        }
+    }
+
+    protected updateValueByProps() {
         if (this.props.value) {
             const activeBtn = Array.isArray(this.props.value)
                 ? new Set(this.props.value)
                 : new Set([this.props.value]);
 
             this.setState((s) => ({...s, activeBtn}));
+        } else {
+            this.setState((s) => ({...s, activeBtn: new Set()}));
         }
     }
 
+    // Todo: вынести в отдельную модель SelectionModel.class<Set>
     private updateActiveBtn(btnId: any) {
         const activeBtn = new Set(this.state.activeBtn);
 
