@@ -1,6 +1,7 @@
 import { BtnGroupItem, BtnGroup } from '../../lib/components/btn-group';
 import React, { ReactNode, useContext, useState } from 'react';
-import { ModalContext } from '../../lib/components/modal';
+import { Modal, ModalContext } from '../../lib/components/modal';
+import { ModalErrorExample } from './ModalErrorExample';
 
 
 interface ModalExampleProps {
@@ -22,21 +23,29 @@ export const ModalExample = (
 
     function onSubmit() {
         if (!check) {
-            alert('Выберете число!');
+            new Modal(
+                <ModalErrorExample
+                    message="Check number"
+                />
+            ).show();
         } else {
             onCheck(check);
             context.onClose();
         }
     }
 
+    function reset() {
+        setCheck(null);
+    }
+
     return (
         <div className="modal-box">
             <h3 className="text-lg">{title || 'Modal example'}</h3>
 
-            <div className="py-2">
+            <div className="py-2 flex items-center">
                 <BtnGroup
                     multiple={false}
-                    value={checkedBtn}
+                    value={check}
                     onChange={e => setCheck(e)}
                 >
                     <BtnGroupItem btnId={1}>1</BtnGroupItem>
@@ -45,6 +54,12 @@ export const ModalExample = (
                     <BtnGroupItem btnId={4}>4</BtnGroupItem>
                     <BtnGroupItem btnId={5}>5</BtnGroupItem>
                 </BtnGroup>
+
+                <div className="actions px-2">
+                    <button className="btn btn-sm btn-circle btn-ghost" onClick={reset}>
+                        <i className="fas fa-times text-error"/>
+                    </button>
+                </div>
             </div>
 
             <button
