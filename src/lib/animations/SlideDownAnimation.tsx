@@ -2,6 +2,7 @@ import { Transition, TransitionStatus } from 'react-transition-group';
 import { ReactNode } from 'react';
 import { Properties } from 'csstype';
 
+// Todo (1) добавить анимацию через namespace (если возможно) <Animation.SlideDown>
 
 const defaultDuration = 300;
 
@@ -23,6 +24,8 @@ export const SlideDownAnimation = ({inProp = false, duration = defaultDuration, 
         transition: `all ${duration}ms ease-in-out`,
         opacity: 0,
     };
+
+    // console.log('inProp', inProp);
 
     return (
         <Transition in={inProp} timeout={duration}>

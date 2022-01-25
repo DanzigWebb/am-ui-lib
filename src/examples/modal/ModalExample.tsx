@@ -2,6 +2,8 @@ import { BtnGroupItem, BtnGroup } from '../../lib/components/btn-group';
 import React, { ReactNode, useContext, useState } from 'react';
 import { Modal, ModalContext } from '../../lib/components/modal';
 import { ModalErrorExample } from './ModalErrorExample';
+import { Menu } from '../../lib/components/menu';
+import { MenuExample } from '../menu/MenuExample';
 
 
 interface ModalExampleProps {
@@ -38,6 +40,10 @@ export const ModalExample = (
         setCheck(null);
     }
 
+    function openMenu(el: Element) {
+        new Menu(<MenuExample />, el).show();
+    }
+
     return (
         <div className="modal-box">
             <h3 className="text-lg">{title || 'Modal example'}</h3>
@@ -58,6 +64,9 @@ export const ModalExample = (
                 <div className="actions px-2">
                     <button className="btn btn-sm btn-circle btn-ghost" onClick={reset}>
                         <i className="fas fa-times text-error"/>
+                    </button>
+                    <button className="btn btn-sm btn-circle btn-ghost" onClick={e => openMenu(e.target as Element)}>
+                        <i className="fas fa-ellipsis-v"/>
                     </button>
                 </div>
             </div>

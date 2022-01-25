@@ -37,6 +37,20 @@
   }
 }
 
+.modal {
+  z-index: 1;
+  animation: .15s Modal-backdrop-show;
+}
+
 .modal-content {
   min-width: 280px;
+}
+
+@keyframes Modal-backdrop-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

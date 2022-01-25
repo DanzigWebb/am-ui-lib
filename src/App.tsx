@@ -6,6 +6,7 @@ import { ModalExample } from './examples/modal/ModalExample';
 import { Modal } from './lib/components/modal';
 import { Menu } from './lib/components/menu';
 import { MenuExample } from './examples/menu/MenuExample';
+import { ModalErrorExample } from './examples/modal/ModalErrorExample';
 
 interface State {
     tabIndex: number,
@@ -34,19 +35,21 @@ function App() {
     };
 
     const openModal = () => {
-        const modal = new Modal(
+        new Modal(
             <ModalExample
                 checkedBtn={state.checkedBtn}
                 title={<b>Динамическое модальное окно</b>}
                 onCheck={(n) => onModalCheck(n)}
             />
-        );
-
-        modal.show();
+        ).show();
     };
 
     function openMenu(reference: Element) {
         new Menu(<MenuExample/>, reference).show();
+    }
+
+    function openErrorPopup() {
+        new Modal(<ModalErrorExample/>).show();
     }
 
     return (
@@ -55,6 +58,10 @@ function App() {
                 <br/>
 
                 <button className="btn" onClick={e => openMenu(e.target as Element)}>Menu</button>
+
+                <br/>
+
+                <button className="btn" onClick={openErrorPopup}>Show error popup</button>
 
                 <br/>
 
