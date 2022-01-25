@@ -1,5 +1,4 @@
 import { AmPortal } from '../../utils';
-import './Menu.css';
 import { MenuContainer } from './MenuContainer';
 import { ReactNode } from 'react';
 
