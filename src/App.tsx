@@ -4,6 +4,8 @@ import { Tab, TabGroup } from './lib/components/tabs';
 import { BtnGroup, BtnGroupItem } from './lib/components/btn-group';
 import { ModalExample } from './examples/modal/ModalExample';
 import { Modal } from './lib/components/modal';
+import { Menu } from './lib/components/menu';
+import { MenuExample } from './examples/menu/MenuExample';
 
 interface State {
     tabIndex: number,
@@ -28,7 +30,6 @@ function App() {
     };
 
     const onModalCheck = (checkedBtn: number) => {
-        console.log('Пользователь выбрал кнопку: ', checkedBtn);
         setState({...state, checkedBtn});
     };
 
@@ -44,9 +45,19 @@ function App() {
         modal.show();
     };
 
+    function openMenu(reference: Element) {
+        new Menu(<MenuExample/>, reference).show();
+    }
+
     return (
         <div className="App">
             <header className="App-header">
+                <br/>
+
+                <button className="btn" onClick={e => openMenu(e.target as Element)}>Menu</button>
+
+                <br/>
+
                 <p className="my-1">Active tab index: {state.tabIndex}</p>
                 <TabGroup onChange={onTabChange}>
                     <Tab index={0} label="Tab1">Tab1 content</Tab>
