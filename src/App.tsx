@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import './App.css';
 import { Tab, TabGroup } from './lib/components/tabs';
-import { BtnGroup } from './lib/components/btn-group/BtnGroup';
-import { BtnGroupItem } from './lib/components/btn-group/BtnGroupItem';
-import { Modal } from './lib/components/modal/Modal';
+import { BtnGroup, BtnGroupItem } from './lib/components/btn-group';
 import { ModalExample } from './examples/modal/ModalExample';
+import { Modal } from './lib/components/modal';
 
 interface State {
     tabIndex: number,
@@ -18,19 +17,19 @@ function App() {
         tabIndex: 0,
         btnIndex: 0,
         checkedBtn: null,
-    })
+    });
 
     const onTabChange = (tabIndex: any) => {
         setState({...state, tabIndex});
     };
 
     const onBtnGroupChange = (btnIndex: any) => {
-        setState({...state, btnIndex})
+        setState({...state, btnIndex});
     };
 
     const onModalCheck = (checkedBtn: number) => {
         console.log('Пользователь выбрал кнопку: ', checkedBtn);
-        setState({...state, checkedBtn})
+        setState({...state, checkedBtn});
     };
 
     const openModal = () => {
@@ -40,7 +39,7 @@ function App() {
                 title={<b>Динамическое модальное окно</b>}
                 onCheck={(n) => onModalCheck(n)}
             />
-        )
+        );
 
         modal.show();
     };

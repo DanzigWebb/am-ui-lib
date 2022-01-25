@@ -1,7 +1,6 @@
-import { BtnGroup } from '../../lib/components/btn-group/BtnGroup';
-import { BtnGroupItem } from '../../lib/components/btn-group/BtnGroupItem';
+import { BtnGroupItem, BtnGroup } from '../../lib/components/btn-group';
 import React, { ReactNode, useContext, useState } from 'react';
-import { ModalContext } from '../../lib/components/modal/ModalContext';
+import { ModalContext } from '../../lib/components/modal';
 
 
 interface ModalExampleProps {
