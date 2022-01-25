@@ -22,8 +22,9 @@ export class AmPortal {
     /* Уничтожение обертки и отвязка реакта */
     close() {
         if (this.portalEl) {
-            unmountComponentAtNode(this.portalEl);
-            document.body.removeChild(this.portalEl);
+            if (unmountComponentAtNode(this.portalEl)) {
+                document.body.removeChild(this.portalEl);
+            }
         }
     }
 }
