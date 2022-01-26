@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, ReactNode } from 'react';
 import { BtnGroupContext, BtnGroupContextState, BtnGroupSelection } from './BtnGroupContext';
 
-interface BtnGroupProps {
-    children: React.ReactNode;
-    value?: any | any[];
-    onChange?: (btnId: any) => void;
+interface BtnGroupProps<T = any> {
+    children: ReactNode;
+    value?: T | T[];
+    onChange?: (btnId: T) => void;
     multiple?: boolean;
 }
 
-export class BtnGroup extends Component<BtnGroupProps, BtnGroupContextState> {
+export class BtnGroup<T = any> extends Component<BtnGroupProps<T>, BtnGroupContextState> {
 
     state: BtnGroupContextState = {
-        btnGroupSelection: new BtnGroupSelection(),
+        btnGroupSelection: new BtnGroupSelection<T>(),
         multiple: !!this.props.multiple,
         updateActiveBtn: this.updateActiveBtn.bind(this)
     };

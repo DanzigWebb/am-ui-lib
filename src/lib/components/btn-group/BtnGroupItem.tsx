@@ -1,16 +1,17 @@
 import { ReactNode, useContext, useEffect } from 'react';
 import { BtnGroupContext } from './BtnGroupContext';
 
-interface BtnGroupItemProps {
-    btnId: any;
+interface BtnGroupItemProps<T = any> {
+    btnId: T;
     children: ReactNode;
     selected?: boolean;
 }
 
-export const BtnGroupItem = (props: BtnGroupItemProps) => {
+export const BtnGroupItem = <T extends any>(props: BtnGroupItemProps<T>) => {
     const context = useContext(BtnGroupContext);
     const isActive = context.btnGroupSelection.has(props.btnId);
 
+    // Обновляем состояние BtnGroup, если кнопка предустановлено выбранна
     useEffect(() => {
         if (props.selected) {
             onSelectBtn();
