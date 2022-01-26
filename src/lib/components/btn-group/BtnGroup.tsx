@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BtnGroupContext, BtnGroupContextState } from './BtnGroupContext';
+import { BtnGroupContext, BtnGroupContextState, BtnGroupSelection } from './BtnGroupContext';
 
 interface BtnGroupProps {
     children: React.ReactNode;
@@ -11,7 +11,7 @@ interface BtnGroupProps {
 export class BtnGroup extends Component<BtnGroupProps, BtnGroupContextState> {
 
     state: BtnGroupContextState = {
-        activeBtn: new Set([]),
+        btnGroupSelection: new BtnGroupSelection(),
         multiple: !!this.props.multiple,
         updateActiveBtn: this.updateActiveBtn.bind(this)
     };
@@ -28,32 +28,28 @@ export class BtnGroup extends Component<BtnGroupProps, BtnGroupContextState> {
 
     protected updateValueByProps() {
         if (this.props.value) {
-            const activeBtn = Array.isArray(this.props.value)
-                ? new Set(this.props.value)
-                : new Set([this.props.value]);
-
-            this.setState((s) => ({...s, activeBtn}));
+            const activeBtn = this.state.btnGroupSelection.add(this.props.value);
+            this.setState((s) => ({...s, btnGroupSelection: activeBtn}));
         } else {
-            this.setState((s) => ({...s, activeBtn: new Set()}));
+            const activeBtn = this.state.btnGroupSelection.clear();
+            this.setState((s) => ({...s, btnGroupSelection: activeBtn}));
         }
     }
 
-    // Todo: вынести в отдельную модель SelectionModel.class<Set>
     private updateActiveBtn(btnId: any) {
-        const activeBtn = new Set(this.state.activeBtn);
+        const btnGroupSelection = this.state.btnGroupSelection;
 
         if (!this.state.multiple) {
-            activeBtn.clear();
-            activeBtn.add(btnId);
+            btnGroupSelection.set(btnId);
         } else {
-            activeBtn.has(btnId)
-                ? activeBtn.delete(btnId)
-                : activeBtn.add(btnId);
+            btnGroupSelection.has(btnId)
+                ? btnGroupSelection.remove(btnId)
+                : btnGroupSelection.add(btnId);
         }
 
         this.setState((state) => ({
             ...state,
-            activeBtn
+            btnGroupSelection
         }));
 
         this.onActiveBtnChange(btnId);

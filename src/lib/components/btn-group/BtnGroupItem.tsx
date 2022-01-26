@@ -9,7 +9,7 @@ interface BtnGroupItemProps {
 
 export const BtnGroupItem = (props: BtnGroupItemProps) => {
     const context = useContext(BtnGroupContext);
-    const isActive = context.activeBtn.has(props.btnId);
+    const isActive = context.btnGroupSelection.has(props.btnId);
 
     useEffect(() => {
         if (props.selected) {
