@@ -2,18 +2,21 @@ import React, { ReactNode, useContext } from 'react';
 import { MenuContext } from './MenuContext';
 
 
-interface MenuItemProps {
+interface MenuItemProps<T = any> {
     children: ReactNode;
     onClick?: (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => any;
     closeOnClick?: boolean;
+    value?: T;
 }
 
-export const MenuItem = (
-    {
+export const MenuItem = (props: MenuItemProps) => {
+
+    const {
         children = '',
         onClick = () => {},
-        closeOnClick = true
-    }: MenuItemProps) => {
+        closeOnClick = true,
+        value,
+    } = props;
 
     const context = useContext(MenuContext);
 
@@ -21,7 +24,7 @@ export const MenuItem = (
         onClick(e);
 
         if (closeOnClick) {
-            context.onClose();
+            context.onSelectItem(value);
         }
     }
 

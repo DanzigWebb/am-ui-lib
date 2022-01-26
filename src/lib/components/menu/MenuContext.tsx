@@ -1,9 +1,11 @@
 import { createContext } from 'react';
+import { EventEmitter } from '../../utils/emitter/EventEmitter';
 
-export interface MenuContextState {
-    onClose: () => void;
+export interface MenuContextState<T = any> {
+    onSelectItem: (value?: T) => void;
+    emitter?: EventEmitter;
 }
 
 export const MenuContext = createContext<MenuContextState>({
-    onClose() {}
+    onSelectItem() {}
 });

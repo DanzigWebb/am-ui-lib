@@ -4,9 +4,10 @@ import { Tab, TabGroup } from './lib/components/tabs';
 import { BtnGroup, BtnGroupItem } from './lib/components/btn-group';
 import { ModalExample } from './examples/modal/ModalExample';
 import { Modal } from './lib/components/modal';
-import { Menu } from './lib/components/menu';
+import { Menu, MenuItem } from './lib/components/menu';
 import { MenuExample } from './examples/menu/MenuExample';
 import { ModalErrorExample } from './examples/modal/ModalErrorExample';
+import { Select } from './lib/components/form/controls/select/Select';
 
 interface State {
     tabIndex: number,
@@ -52,9 +53,20 @@ function App() {
         new Modal(<ModalErrorExample/>).show();
     }
 
+    const SelectIcon = ({color = ''}) => <i className={`fas fa-lightbulb text-${color} mx-2`}/>;
+
     return (
         <div className="App">
             <header className="App-header">
+
+                <br/>
+
+                <Select placeholder="Check item">
+                    <MenuItem value="error"><SelectIcon color="error"/> error</MenuItem>
+                    <MenuItem value="accent"><SelectIcon color="accent"/> accent</MenuItem>
+                    <MenuItem value="info"><SelectIcon color="info"/> info</MenuItem>
+                </Select>
+
                 <br/>
 
                 <button className="btn" onClick={e => openMenu(e.target as Element)}>Menu</button>

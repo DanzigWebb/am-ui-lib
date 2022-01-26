@@ -4,18 +4,25 @@ import { Menu } from './Menu';
 import './Menu.css';
 import { usePopper } from 'react-popper';
 import { SlideDownAnimation } from '../../animations/SlideDownAnimation';
+import { EventEmitter } from '../../utils/emitter/EventEmitter';
 
-interface MenuContainerProps {
+interface MenuContainerProps<T = any> {
     children: ReactNode;
     reference: Element;
-    onClose: () => void;
+    onClose: (v: T) => void;
     context: Menu;
 }
 
-export const MenuContainer = ({children, onClose, reference}: MenuContainerProps) => {
+export function MenuContainer(props: MenuContainerProps) {
+    const {
+        children,
+        onClose = () => {},
+        reference
+    } = props;
 
     const duration = 200;
 
+    const emitter = new EventEmitter();
     const [show, setShow] = useState(false);
 
     const [popperEl, setPopperEl] = useState<HTMLElement | null>(null);
@@ -25,15 +32,17 @@ export const MenuContainer = ({children, onClose, reference}: MenuContainerProps
         setShow(true);
     }, []);
 
-    function onStartClose() {
+    function onStartClose(value: any) {
+        emitter.emit('onSelect', value);
+
         setShow(false);
         setTimeout(() => {
-            onClose();
+            onClose(value);
         }, duration);
     }
 
     return (
-        <MenuContext.Provider value={{onClose: onStartClose}}>
+        <MenuContext.Provider value={{onSelectItem: onStartClose, emitter}}>
             <div className="menu-container" onClick={onStartClose}>
                 <div
                     ref={setPopperEl}
@@ -43,7 +52,7 @@ export const MenuContainer = ({children, onClose, reference}: MenuContainerProps
                     <SlideDownAnimation inProp={show} duration={duration}>
                         <ul
                             onClick={e => e.stopPropagation()}
-                            className="menu bg-base-300 drop-shadow-2xl rounded-box"
+                            className="menu bg-base-300 drop-shadow-2xl rounded-md"
                         >
                             {children}
                         </ul>
@@ -52,4 +61,4 @@ export const MenuContainer = ({children, onClose, reference}: MenuContainerProps
             </div>
         </MenuContext.Provider>
     );
-};
+}
