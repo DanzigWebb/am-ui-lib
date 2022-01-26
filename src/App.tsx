@@ -53,7 +53,11 @@ function App() {
         new Modal(<ModalErrorExample/>).show();
     }
 
-    const SelectIcon = ({color = ''}) => <i className={`fas fa-lightbulb text-${color} mx-2`}/>;
+    const SelectOption = ({color = ''}) => (
+        <>
+            <i className={`fas fa-lightbulb text-${color} mx-2`}/> {color}
+        </>
+    );
 
     return (
         <div className="App">
@@ -62,9 +66,15 @@ function App() {
                 <br/>
 
                 <Select placeholder="Check item">
-                    <MenuItem value="error"><SelectIcon color="error"/> error</MenuItem>
-                    <MenuItem value="accent"><SelectIcon color="accent"/> accent</MenuItem>
-                    <MenuItem value="info"><SelectIcon color="info"/> info</MenuItem>
+                    <MenuItem value="error">
+                        <SelectOption color="error"/>
+                    </MenuItem>
+                    <MenuItem value="accent">
+                        <SelectOption color="accent"/>
+                    </MenuItem>
+                    <MenuItem value="info">
+                        <SelectOption color="info"/>
+                    </MenuItem>
                 </Select>
 
                 <br/>
