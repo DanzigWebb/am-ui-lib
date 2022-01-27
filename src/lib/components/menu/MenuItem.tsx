@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext } from 'react';
+import React, { ReactNode, useContext, useEffect, useState } from 'react';
 import { MenuContext } from './MenuContext';
 
 
@@ -18,7 +18,24 @@ export const MenuItem = (props: MenuItemProps) => {
         value,
     } = props;
 
+    const [state, setState] = useState({
+        isShow: true
+    });
+
     const context = useContext(MenuContext);
+
+    context.emitter?.subscribe('onFilterChange', onFilterChange);
+
+    useEffect(() => {
+        return () => {
+            context.emitter?.unsubscribe('onFilterChange', onFilterChange);
+        };
+    });
+
+    function onFilterChange(v: string) {
+        const isShow = value.includes(v);
+        setState({...state, isShow});
+    }
 
     function close(e: React.MouseEvent<HTMLLIElement, MouseEvent>) {
         onClick(e);
@@ -28,9 +45,13 @@ export const MenuItem = (props: MenuItemProps) => {
         }
     }
 
-    return (
-        <li onClick={close}>
-            <a>{children}</a>
-        </li>
-    );
+    if (state.isShow) {
+        return (
+            <li onClick={close}>
+                <a>{children}</a>
+            </li>
+        );
+    } else {
+        return <></>;
+    }
 };

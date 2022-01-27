@@ -5,12 +5,13 @@ import { ReactNode, useState } from 'react';
 type SelectProps<T = any> = {
     children: ReactNode;
     placeholder?: string;
+    onSearch?: (v: string) => void;
 }
 
 export const Select = (props: SelectProps) => {
 
     const [value, setValue] = useState<any>(null);
-    const {children, placeholder = ''} = props;
+    const {children, placeholder = '', onSearch = () => {}} = props;
 
     function onSelect(v: any) {
         setValue(v || value);
@@ -20,7 +21,9 @@ export const Select = (props: SelectProps) => {
         const dropdown = (
             <SelectDropdown
                 width={el.clientWidth}
-                onSelect={onSelect}>
+                onSelect={onSelect}
+                onSearch={onSearch}
+            >
                 {children}
             </SelectDropdown>
         );
@@ -33,7 +36,8 @@ export const Select = (props: SelectProps) => {
             placeholder={placeholder}
             className="select"
             onClick={e => openSelectMenu(e.target as Element)}
-            defaultValue={value || ''}
+            value={value || ''}
+            onInput={e => e.preventDefault()}
         />
     );
 };

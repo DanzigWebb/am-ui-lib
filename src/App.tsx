@@ -10,9 +10,9 @@ import { ModalErrorExample } from './examples/modal/ModalErrorExample';
 import { Select } from './lib/components/form/controls/select/Select';
 
 interface State {
-    tabIndex: number,
-    btnIndex: number,
-    checkedBtn: null | number,
+    tabIndex: number;
+    btnIndex: number;
+    checkedBtn: null | number;
 }
 
 function App() {
