@@ -13,7 +13,7 @@ export const Select = (props: SelectProps) => {
     const {children, placeholder = ''} = props;
 
     function onSelect(v: any) {
-        setValue(v);
+        setValue(v || value);
     }
 
     function openSelectMenu(el: Element) {

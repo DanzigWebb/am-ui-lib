@@ -43,7 +43,7 @@ export function MenuContainer(props: MenuContainerProps) {
 
     return (
         <MenuContext.Provider value={{onSelectItem: onStartClose, emitter}}>
-            <div className="menu-container" onClick={onStartClose}>
+            <div className="menu-container" onClick={() => onStartClose(undefined)}>
                 <div
                     ref={setPopperEl}
                     style={styles.popper}
