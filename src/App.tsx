@@ -65,17 +65,20 @@ function App() {
 
                 <br/>
 
-                <Select placeholder="Check item">
-                    <MenuItem value="error">
-                        <SelectOption color="error"/>
-                    </MenuItem>
-                    <MenuItem value="accent">
-                        <SelectOption color="accent"/>
-                    </MenuItem>
-                    <MenuItem value="info">
-                        <SelectOption color="info"/>
-                    </MenuItem>
-                </Select>
+                <div className="max-w-xs w-full">
+                    <Select placeholder="Check item" multiple={true}>
+                        <MenuItem value="error">
+                            <SelectOption color="error"/>
+                        </MenuItem>
+                        <MenuItem value="accent">
+                            <SelectOption color="accent"/>
+                        </MenuItem>
+                        <MenuItem value="info">
+                            <SelectOption color="info"/>
+                        </MenuItem>
+                    </Select>
+
+                </div>
 
                 <br/>
 

@@ -5,8 +5,16 @@ export abstract class SelectionModel<T> {
         return this.selection;
     }
 
+    asArray() {
+        return Array.from(this.selection)
+    }
+
     has(value: T): boolean {
         return this.selection.has(value);
+    }
+
+    get size() {
+        return this.selection.size;
     }
 
     add(value: T | T[]) {
